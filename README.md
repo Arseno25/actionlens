@@ -1,8 +1,10 @@
-# ActionLens
+<div align="center">
+  <img src="packages/vscode-extension/logo.png" alt="ActionLens Logo" width="128" height="128" />
+  <h1>ActionLens</h1>
+  <p><b>GitHub Actions inspector that lives inside your IDE.</b></p>
+</div>
 
-GitHub Actions inspector that lives inside your IDE. View workflow runs, jobs,
-steps, and full job logs with error highlighting — without leaving VS Code or
-your JetBrains IDE.
+View workflow runs, jobs, steps, and full job logs with error highlighting — without leaving VS Code or your JetBrains IDE.
 
 > Status: MVP scaffold. The shared core, VS Code extension, and JetBrains
 > plugin compile and run; see [Known limitations](#known-limitations).
@@ -30,11 +32,11 @@ debug prompt.
 
 ## Screenshots
 
-_TODO: add screenshots once the UI is finalized._
+### VS Code Extension
+<img src="images/vscode.png" alt="ActionLens VS Code Extension" width="800" />
 
-- `docs/screenshots/vscode-tree.png`
-- `docs/screenshots/vscode-log.png`
-- `docs/screenshots/jetbrains-toolwindow.png`
+### JetBrains Plugin
+<img src="images/jetbrain.png" alt="ActionLens JetBrains Plugin" width="800" />
 
 ## Repository layout
 
