@@ -18,7 +18,7 @@ object TokenStorage {
     private const val USER = "github-token"
 
     private val attributes: CredentialAttributes =
-        CredentialAttributes(generateServiceName("ActionLens", USER))
+        CredentialAttributes(generateServiceName("ActionLens", USER), USER)
 
     enum class Source { MANUAL_PAT, IDE_GITHUB_ACCOUNT, NONE }
 

@@ -27,8 +27,8 @@ jobs:
           path: packages/vscode-extension/*.vsix
 
       # Optional: Publish to VS Code Marketplace
-      # - name: Publish to VS Code Marketplace
-      #   run: pnpm --filter actionlens-vscode exec vsce publish -p ${{ secrets.VSCE_PAT }}
+      - name: Publish to VS Code Marketplace
+        run: pnpm --filter actionlens-vscode exec vsce publish -p ${{ secrets.VSCE_PAT }}
 
   jetbrains:
     name: Package JetBrains plugin
@@ -50,10 +50,10 @@ jobs:
           path: packages/jetbrains-plugin/build/distributions/*.zip
 
       # Optional: Publish to JetBrains Marketplace
-      # - name: Publish to JetBrains Marketplace
-      #   env:
-      #     PUBLISH_TOKEN: ${{ secrets.JB_PUBLISH_TOKEN }}
-      #   run: ./gradlew publishPlugin --no-daemon
+      - name: Publish to JetBrains Marketplace
+        env:
+          PUBLISH_TOKEN: ${{ secrets.JB_PUBLISH_TOKEN }}
+        run: ./gradlew publishPlugin --no-daemon
 
   github-release:
     name: Create GitHub Release
