@@ -1,6 +1,6 @@
 {
   "name": "@actionlens/core",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Shared, IDE-agnostic core for ActionLens",
   "license": "MIT",
   "private": true,
