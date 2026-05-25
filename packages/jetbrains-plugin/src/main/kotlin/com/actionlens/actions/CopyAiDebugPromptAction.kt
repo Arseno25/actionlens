@@ -4,6 +4,7 @@ import com.actionlens.github.WorkflowConclusion
 import com.actionlens.logs.AiDebugPrompt
 import com.actionlens.logs.AiDebugPromptInput
 import com.actionlens.toolwindow.ActionLensToolWindowFactory
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ide.CopyPasteManager
@@ -11,6 +12,8 @@ import com.intellij.openapi.ui.Messages
 import java.awt.datatransfer.StringSelection
 
 class CopyAiDebugPromptAction : AnAction() {
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val panel = ActionLensToolWindowFactory.panel(project) ?: return

@@ -35,7 +35,7 @@ object TokenStorage {
 
     /** Read just the manually-stored PAT (for the settings dialog). */
     fun manualToken(): String? =
-        PasswordSafe.instance.get(attributes)?.getPasswordAsString()?.takeIf { it.isNotBlank() }
+        PasswordSafe.instance.getPassword(attributes)?.takeIf { it.isNotBlank() }
 
     fun setManualToken(token: String?) {
         if (token.isNullOrBlank()) {

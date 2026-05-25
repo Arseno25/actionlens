@@ -30,6 +30,7 @@ dependencies {
         // Optional: reuse the user's GitHub login from the bundled GitHub plugin.
         bundledPlugin("org.jetbrains.plugins.github")
         instrumentationTools()
+        pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
     testImplementation(kotlin("test"))
