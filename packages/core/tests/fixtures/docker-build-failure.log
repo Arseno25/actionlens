@@ -1,0 +1,7 @@
+#10 [build 3/5] RUN npm ci
+#10 12.34 npm ERR! code ENOENT
+#10 12.35 npm ERR! syscall open
+#10 12.36 npm ERR! path /app/package.json
+#10 ERROR: process "/bin/sh -c npm ci" did not complete successfully: exit code: 254
+ERROR: failed to solve: process "/bin/sh -c npm ci" did not complete successfully: exit code: 254
+Process completed with exit code 1.

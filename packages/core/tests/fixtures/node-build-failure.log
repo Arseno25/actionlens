@@ -1,0 +1,7 @@
+2026-01-01T12:00:00.123Z > actionlens@0.1.0 build
+2026-01-01T12:00:00.456Z > tsc -p tsconfig.json
+2026-01-01T12:00:02.789Z src/foo.ts(10,5): error TS2304: Cannot find name 'bar'.
+2026-01-01T12:00:02.890Z src/foo.ts(11,5): error TS2322: Type 'string' is not assignable to type 'number'.
+2026-01-01T12:00:03.001Z npm ERR! code ELIFECYCLE
+2026-01-01T12:00:03.002Z npm ERR! errno 1
+2026-01-01T12:00:03.100Z Process completed with exit code 1.
