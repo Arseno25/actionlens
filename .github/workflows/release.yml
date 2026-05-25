@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  vscode:
+    name: Package VS Code extension
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm --filter actionlens-vscode exec vsce package --no-dependencies
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vscode-extension
+          path: packages/vscode-extension/*.vsix
+
+      # Optional: Publish to VS Code Marketplace
+      # - name: Publish to VS Code Marketplace
+      #   run: pnpm --filter actionlens-vscode exec vsce publish -p ${{ secrets.VSCE_PAT }}
+
+  jetbrains:
+    name: Package JetBrains plugin
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/jetbrains-plugin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+      - run: ./gradlew buildPlugin --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jetbrains-plugin
+          path: packages/jetbrains-plugin/build/distributions/*.zip
+
+      # Optional: Publish to JetBrains Marketplace
+      # - name: Publish to JetBrains Marketplace
+      #   env:
+      #     PUBLISH_TOKEN: ${{ secrets.JB_PUBLISH_TOKEN }}
+      #   run: ./gradlew publishPlugin --no-daemon
+
+  github-release:
+    name: Create GitHub Release
+    needs: [vscode, jetbrains]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download VS Code artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vscode-extension
+          path: artifacts/vscode
+      - name: Download JetBrains artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jetbrains-plugin
+          path: artifacts/jetbrains
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/vscode/*.vsix
+            artifacts/jetbrains/*.zip
+          generate_release_notes: true

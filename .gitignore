@@ -1,0 +1,33 @@
+# Node
+node_modules/
+dist/
+out/
+*.vsix
+.turbo/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode-test/
+*.iml
+
+# Gradle / JetBrains plugin
+packages/jetbrains-plugin/.gradle/
+packages/jetbrains-plugin/build/
+packages/jetbrains-plugin/.idea/
+packages/jetbrains-plugin/gradle-app.setting
+packages/jetbrains-plugin/!gradle-wrapper.jar
+
+# Env
+.env
+.env.local

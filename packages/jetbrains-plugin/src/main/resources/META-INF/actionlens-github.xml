@@ -1,0 +1,8 @@
+<idea-plugin>
+    <!--
+      Activated only when org.jetbrains.plugins.github is installed.
+      Currently empty: the runtime check in GitHubPluginAuth.kt handles
+      everything, so loading just this fragment is enough to gate the
+      class-loader against the GitHub plugin classes.
+    -->
+</idea-plugin>

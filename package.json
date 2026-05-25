@@ -1,0 +1,24 @@
+{
+  "name": "actionlens",
+  "private": true,
+  "version": "0.1.0",
+  "description": "ActionLens — GitHub Actions inspector for VS Code and JetBrains IDEs",
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "build:core": "pnpm --filter @actionlens/core run build",
+    "build:vscode": "pnpm --filter actionlens-vscode run build",
+    "test:core": "pnpm --filter @actionlens/core run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

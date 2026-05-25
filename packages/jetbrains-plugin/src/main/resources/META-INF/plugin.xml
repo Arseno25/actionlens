@@ -1,0 +1,71 @@
+<idea-plugin>
+    <id>com.actionlens</id>
+    <name>ActionLens</name>
+    <vendor email="hello@actionlens.dev" url="https://github.com/actionlens">ActionLens</vendor>
+
+    <description><![CDATA[
+        Inspect GitHub Actions workflow runs, jobs, and full job logs without
+        leaving your JetBrains IDE.
+        <ul>
+            <li>Detects the GitHub repository from your project's <code>origin</code> remote.</li>
+            <li>Browse workflow runs → jobs → steps in a dedicated tool window.</li>
+            <li>View full job logs with error-line highlighting.</li>
+            <li>Copy error snippets or a ready-to-paste AI debug prompt.</li>
+        </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>0.1.0</h3>
+        <ul>
+            <li>Initial release: tool window, GitHub Actions browser, log viewer with error highlighting.</li>
+        </ul>
+    ]]></change-notes>
+
+    <!-- Plugin runs on any IntelliJ-based IDE on the configured platform version. -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+    <!-- Optional: when present, we reuse the user's GitHub account from this plugin. -->
+    <depends optional="true" config-file="actionlens-github.xml">org.jetbrains.plugins.github</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="ActionLens"
+                    anchor="right"
+                    icon="AllIcons.Vcs.Branch"
+                    factoryClass="com.actionlens.toolwindow.ActionLensToolWindowFactory"/>
+
+        <applicationService serviceImplementation="com.actionlens.settings.ActionLensSettings"/>
+        <applicationConfigurable
+            parentId="tools"
+            instance="com.actionlens.settings.ActionLensConfigurable"
+            id="com.actionlens.settings"
+            displayName="ActionLens"/>
+    </extensions>
+
+    <actions>
+        <action id="ActionLens.Refresh"
+                class="com.actionlens.actions.RefreshRunsAction"
+                text="Refresh ActionLens"
+                description="Reload workflow runs"
+                icon="AllIcons.Actions.Refresh"/>
+        <action id="ActionLens.OpenJobLog"
+                class="com.actionlens.actions.OpenJobLogAction"
+                text="Open Job Log"
+                description="Download and display the selected job's log"
+                icon="AllIcons.Actions.PreviewDetails"/>
+        <action id="ActionLens.CopyErrorSnippet"
+                class="com.actionlens.actions.CopyErrorSnippetAction"
+                text="Copy Error Snippet"
+                description="Copy the first detected error block to the clipboard"
+                icon="AllIcons.Actions.Copy"/>
+        <action id="ActionLens.CopyAiDebugPrompt"
+                class="com.actionlens.actions.CopyAiDebugPromptAction"
+                text="Copy AI Debug Prompt"
+                description="Copy a ready-to-paste prompt summarising the failure"
+                icon="AllIcons.Actions.IntentionBulb"/>
+        <action id="ActionLens.OpenInGithub"
+                class="com.actionlens.actions.OpenInGithubAction"
+                text="Open in GitHub"
+                description="Open the run or job on github.com"
+                icon="AllIcons.Ide.External_link_arrow"/>
+    </actions>
+</idea-plugin>

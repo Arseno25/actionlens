@@ -1,0 +1,131 @@
+{
+  "name": "actionlens-vscode",
+  "displayName": "ActionLens",
+  "description": "Inspect GitHub Actions workflow runs, jobs, and logs without leaving VS Code.",
+  "version": "0.1.0",
+  "publisher": "actionlens",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "SCM Providers"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "actionlens",
+          "title": "ActionLens",
+          "icon": "media/actionlens.svg"
+        }
+      ]
+    },
+    "views": {
+      "actionlens": [
+        {
+          "id": "actionlens.actions",
+          "name": "GitHub Actions",
+          "contextualTitle": "ActionLens"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "actionlens.actions",
+        "contents": "No GitHub repository detected. Make sure this project has an origin remote pointing to GitHub.\n[Refresh](command:actionlens.refresh)",
+        "when": "!actionlens.hasRepo"
+      },
+      {
+        "view": "actionlens.actions",
+        "contents": "You need to authenticate to access GitHub Actions.\n[Sign in with GitHub](command:actionlens.signIn)\n[Enter Token Manually](command:actionlens.enterToken)",
+        "when": "actionlens.hasRepo && !actionlens.isSignedIn"
+      }
+    ],
+    "commands": [
+      { "command": "actionlens.refresh", "title": "ActionLens: Refresh", "icon": "$(refresh)" },
+      { "command": "actionlens.openJobLog", "title": "ActionLens: Open Job Log", "icon": "$(output)" },
+      { "command": "actionlens.copyErrorSnippet", "title": "ActionLens: Copy Error Snippet", "icon": "$(copy)" },
+      { "command": "actionlens.copyAiDebugPrompt", "title": "ActionLens: Copy AI Debug Prompt", "icon": "$(comment-discussion)" },
+      { "command": "actionlens.openInGithub", "title": "ActionLens: Open in GitHub", "icon": "$(link-external)" },
+      { "command": "actionlens.configureToken", "title": "ActionLens: Configure Token", "icon": "$(key)" },
+      { "command": "actionlens.signIn", "title": "ActionLens: Sign in with GitHub" },
+      { "command": "actionlens.enterToken", "title": "ActionLens: Enter Token Manually" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "actionlens.refresh", "when": "view == actionlens.actions", "group": "navigation" },
+        { "command": "actionlens.configureToken", "when": "view == actionlens.actions && !actionlens.isSignedIn", "group": "navigation" }
+      ],
+      "view/item/context": [
+        { "command": "actionlens.openJobLog", "when": "view == actionlens.actions && viewItem == actionlens.job", "group": "inline" },
+        { "command": "actionlens.openInGithub", "when": "view == actionlens.actions && viewItem =~ /actionlens\\.(run|job)/", "group": "1_navigation" },
+        { "command": "actionlens.copyErrorSnippet", "when": "view == actionlens.actions && viewItem == actionlens.job", "group": "2_copy" },
+        { "command": "actionlens.copyAiDebugPrompt", "when": "view == actionlens.actions && viewItem == actionlens.job", "group": "2_copy" }
+      ]
+    },
+    "configuration": {
+      "title": "ActionLens",
+      "properties": {
+        "actionlens.autoRefresh.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically re-poll runs that are still in progress."
+        },
+        "actionlens.autoRefresh.intervalSeconds": {
+          "type": "number",
+          "default": 15,
+          "minimum": 5,
+          "description": "How often (in seconds) to re-poll when auto-refresh is enabled."
+        },
+        "actionlens.defaultBranchOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only show runs for the currently-checked-out branch."
+        },
+        "actionlens.matchCurrentCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only show runs whose head SHA matches the current commit."
+        },
+        "actionlens.maxRuns": {
+          "type": "number",
+          "default": 25,
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Maximum number of workflow runs to show per repository."
+        },
+        "actionlens.log.maxLines": {
+          "type": "number",
+          "default": 5000,
+          "minimum": 100,
+          "description": "Truncate displayed logs past this many lines (kept from the end)."
+        },
+        "actionlens.errorHighlight.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Highlight detected error lines in opened logs."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.js --production",
+    "dev": "node esbuild.js --watch",
+    "clean": "rimraf dist",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@actionlens/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.21.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5"
+  }
+}
