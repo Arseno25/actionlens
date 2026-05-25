@@ -1,7 +1,7 @@
 {
   "name": "actionlens",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "ActionLens — GitHub Actions inspector for VS Code and JetBrains IDEs",
   "license": "MIT",
   "packageManager": "pnpm@9.0.0",
