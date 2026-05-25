@@ -2,7 +2,7 @@
   "name": "actionlens-vscode",
   "displayName": "ActionLens",
   "description": "Inspect GitHub Actions workflow runs, jobs, and logs without leaving VS Code.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "MrShadow2511",
   "icon": "logo.png",
   "license": "MIT",
