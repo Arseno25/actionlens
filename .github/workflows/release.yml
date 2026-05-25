@@ -29,7 +29,7 @@ jobs:
       # Optional: Publish to VS Code Marketplace
       - name: Publish to VS Code Marketplace
         working-directory: packages/vscode-extension
-        run: npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }}
+        run: npx @vscode/vsce publish --no-dependencies -p ${{ secrets.VSCE_PAT }}
 
   jetbrains:
     name: Package JetBrains plugin
